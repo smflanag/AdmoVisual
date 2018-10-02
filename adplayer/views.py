@@ -5,35 +5,17 @@ from rest_framework import mixins, generics
 from rest_framework.response import Response
 
 
-class PlaylistList(mixins.ListModelMixin,
-                   mixins.CreateModelMixin,
-                   generics.GenericAPIView):
-    """
-    List playlists.
-    """
+class PlaylistList(generics.ListCreateAPIView):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-class VideoList(mixins.ListModelMixin,
-                   mixins.CreateModelMixin,
-                   generics.GenericAPIView):
-    """
-    List videos.
-    """
+class VideoList(generics.ListCreateAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-
-class PlaylistDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
-                    generics.GenericAPIView):
+class PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
 
@@ -46,48 +28,105 @@ class PlaylistDetail(mixins.RetrieveModelMixin,
         return Response(total_playlist)
 
 
-class VideoDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
-                    generics.GenericAPIView):
+class VideoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
 
-
-class ImpressionList(mixins.ListModelMixin,
-                   mixins.CreateModelMixin,
-                   generics.GenericAPIView):
-    """
-    List impressions.
-    """
+class ImpressionList(generics.ListCreateAPIView):
     queryset = Impression.objects.all()
     serializer_class = ImpressionSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-
-class ImpressionDetail(mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
-                    generics.GenericAPIView):
+class ImpressionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Impression.objects.all()
     serializer_class = ImpressionSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+#mixins
+# class PlaylistList(mixins.ListModelMixin,
+#                    mixins.CreateModelMixin,
+#                    generics.GenericAPIView):
+#     """
+#     List playlists.
+#     """
+#     queryset = Playlist.objects.all()
+#     serializer_class = PlaylistSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+# class VideoList(mixins.ListModelMixin,
+#                    mixins.CreateModelMixin,
+#                    generics.GenericAPIView):
+#     """
+#     List videos.
+#     """
+#     queryset = Video.objects.all()
+#     serializer_class = VideoSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#
+# class PlaylistDetail(mixins.RetrieveModelMixin,
+#                     mixins.UpdateModelMixin,
+#                     mixins.DestroyModelMixin,
+#                     generics.GenericAPIView):
+#     queryset = Video.objects.all()
+#     serializer_class = VideoSerializer
+#
+#     def get(self, request, pk, format=None):
+#         playlist = Video.objects.filter(playlist_id=pk)
+#         total_playlist = []
+#         for obj in playlist:
+#             serializer = VideoSerializer(obj)
+#             total_playlist.append(serializer.data)
+#         return Response(total_playlist)
+#
+#
+# class VideoDetail(mixins.RetrieveModelMixin,
+#                     mixins.UpdateModelMixin,
+#                     mixins.DestroyModelMixin,
+#                     generics.GenericAPIView):
+#     queryset = Video.objects.all()
+#     serializer_class = VideoSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+#
+#
+# class ImpressionList(mixins.ListModelMixin,
+#                    mixins.CreateModelMixin,
+#                    generics.GenericAPIView):
+#     """
+#     List impressions.
+#     """
+#     queryset = Impression.objects.all()
+#     serializer_class = ImpressionSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+#
+#
+# class ImpressionDetail(mixins.RetrieveModelMixin,
+#                     mixins.UpdateModelMixin,
+#                     mixins.DestroyModelMixin,
+#                     generics.GenericAPIView):
+#     queryset = Impression.objects.all()
+#     serializer_class = ImpressionSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+#
+#     def put(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+#
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
 
 
 #Class based views
