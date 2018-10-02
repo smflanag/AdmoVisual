@@ -4,13 +4,13 @@ from adplayer.models import Playlist,Player,Video,Impression
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
-        fields = '__all__'
+        fields = ('name',)
 
 
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = '__all__'
+        fields = ('name', 'url', 'playlist')
 
 class PlayerSerializer(serializers.ModelSerializer):
     playlist = serializers.CharField(source='playlist.id', read_only=True)  ##?
@@ -19,9 +19,7 @@ class PlayerSerializer(serializers.ModelSerializer):
         fields = ('name', 'playlist')
 
 class ImpressionSerializer(serializers.ModelSerializer):
-    playlist = serializers.CharField(source='playlist.id', read_only=True)  ##?
-    player = serializers.CharField(source='player.id', read_only=True)      ##?
-    video = serializers.CharField(source='video.id', read_only=True)        ##?
+
     class Meta:
         model = Impression
         fields = ('timestamp','player','video','playlist')
