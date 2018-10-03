@@ -1,31 +1,75 @@
 from adplayer.models import Player,Playlist,Video,Impression
 from adplayer.serializers import PlayerSerializer,PlaylistSerializer,VideoSerializer,ImpressionSerializer
 
-from rest_framework import mixins, generics
+
 from rest_framework.response import Response
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework import renderers
 
 
-class PlaylistList(generics.ListCreateAPIView):
+class PlaylistViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-class VideoList(generics.ListCreateAPIView):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
-
-
-class PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
-
-    def get(self, request, pk, format=None):
+    @action(detail=True,renderer_classes=[renderers.StaticHTMLRenderer])
+    def get_specific(self, request, pk, format=None):
         playlist = Video.objects.filter(playlist_id=pk)
         total_playlist = []
         for obj in playlist:
             serializer = VideoSerializer(obj)
             total_playlist.append(serializer.data)
         return Response(total_playlist)
+
+
+class VideoViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
+
+
+class ImpressionViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
+    queryset = Impression.objects.all()
+    serializer_class = ImpressionSerializer
+
+
+#generic classes
+from rest_framework import mixins, generics
+# class PlaylistList(generics.ListCreateAPIView):
+#     queryset = Playlist.objects.all()
+#     serializer_class = PlaylistSerializer
+#
+#
+# class PlaylistDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Video.objects.all()
+#     serializer_class = VideoSerializer
+#
+#     def get(self, request, pk, format=None):
+#         playlist = Video.objects.filter(playlist_id=pk)
+#         total_playlist = []
+#         for obj in playlist:
+#             serializer = VideoSerializer(obj)
+#             total_playlist.append(serializer.data)
+#         return Response(total_playlist)
+
+
+class VideoList(generics.ListCreateAPIView):
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
 
 
 class VideoDetail(generics.RetrieveUpdateDestroyAPIView):
