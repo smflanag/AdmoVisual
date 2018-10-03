@@ -26,3 +26,5 @@ db.sqlite3
 *.sqlite3
 manage.py
 *.xml
+
+.idea/workspace.xml
