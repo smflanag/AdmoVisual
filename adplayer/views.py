@@ -28,6 +28,15 @@ class PlaylistViewSet(viewsets.ModelViewSet):
             total_playlist.append(serializer.data)
         return Response(total_playlist)
 
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def get_current(self, request):
+        playlist = Playlist.objects.all()[len(Playlist.objects.all())-1] #gives last playlist
+        playlist_videos = Video.objects.filter(playlist_id=playlist)
+        total_playlist = []
+        for obj in playlist_videos:
+            serializer = VideoSerializer(obj)
+            total_playlist.append(serializer.data)
+        return Response(total_playlist)
 
 class VideoViewSet(viewsets.ModelViewSet):
     """
@@ -65,26 +74,26 @@ from rest_framework import mixins, generics
 #             serializer = VideoSerializer(obj)
 #             total_playlist.append(serializer.data)
 #         return Response(total_playlist)
-
-
-class VideoList(generics.ListCreateAPIView):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
-
-
-class VideoDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
-
-
-class ImpressionList(generics.ListCreateAPIView):
-    queryset = Impression.objects.all()
-    serializer_class = ImpressionSerializer
-
-
-class ImpressionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Impression.objects.all()
-    serializer_class = ImpressionSerializer
+#
+#
+# class VideoList(generics.ListCreateAPIView):
+#     queryset = Video.objects.all()
+#     serializer_class = VideoSerializer
+#
+#
+# class VideoDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Video.objects.all()
+#     serializer_class = VideoSerializer
+#
+#
+# class ImpressionList(generics.ListCreateAPIView):
+#     queryset = Impression.objects.all()
+#     serializer_class = ImpressionSerializer
+#
+#
+# class ImpressionDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Impression.objects.all()
+#     serializer_class = ImpressionSerializer
 
 
 #mixins
