@@ -1,4 +1,6 @@
 from django.conf.urls import url,include
+from django.urls import path
+from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 from adplayer import views
 
@@ -38,6 +40,13 @@ impression_detail = ImpressionViewSet.as_view({
     'delete': 'destroy'
 })
 
+# router = DefaultRouter()
+# router.register(r'playlists', views.PlaylistViewSet)
+# router.register(r'videos', views.VideoViewSet)
+# router.register(r'impressions', views.ImpressionViewSet)
+#
+# urlpatterns = [url(r'^',include(router.urls))]
+
 urlpatterns = [
     #url(r'^playlists/$', views.playlist_list),
     #url(r'^playlists/$', views.PlaylistList.as_view()),
@@ -58,6 +67,12 @@ urlpatterns = [
     #url(r'^impression/(?P<pk>[0-9]+)/$',views.impression_detail),
     #url(r'^impression/(?P<pk>[0-9]+)/$',views.ImpressionDetail.as_view()),
     url(r'^impression/(?P<pk>[0-9]+)$', impression_detail, name='impression_detail'),
+    path('rest-auth/', include('rest_auth.urls')),
+]
+
+from rest_framework.authtoken import views
+urlpatterns += [
+    url(r'^api-token-auth/', views.obtain_auth_token)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
