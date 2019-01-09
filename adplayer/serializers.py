@@ -10,7 +10,7 @@ class PlaylistSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ('name', 'url', 'playlist')
+        fields = ('name', 'url', 'playlist', 'id')
 
 class PlayerSerializer(serializers.ModelSerializer):
     playlist = serializers.CharField(source='playlist.id', read_only=True)  ##?
@@ -22,7 +22,7 @@ class ImpressionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Impression
-        fields = ('timestamp','player','video','playlist')
+        fields = ('timestamp','player','video','playlist', 'id')
 
 
 

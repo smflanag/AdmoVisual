@@ -17,8 +17,10 @@ class PlaylistViewSet(viewsets.ModelViewSet):
     """
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = (IsAuthenticated,)
+    # authentication_classes = (TokenAuthentication,)
+### removed for testing UI
+
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
