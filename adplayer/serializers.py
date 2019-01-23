@@ -1,6 +1,41 @@
 from rest_framework import serializers
 from adplayer.models import Playlist,Player,Video,Impression
 
+from rest_framework import serializers
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'],
+                                        None,
+                                        validated_data['password'])
+        return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
+
+
+class LoginUserSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Unable to log in with provided credentials.")
+
+
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
@@ -12,20 +47,21 @@ class VideoSerializer(serializers.ModelSerializer):
         model = Video
         fields = ('name', 'url', 'playlist', 'id')
 
+
 class PlayerSerializer(serializers.ModelSerializer):
     playlist = serializers.CharField(source='playlist.id', read_only=True)  ##?
     class Meta:
         model = Player
         fields = ('name', 'playlist')
 
-class ImpressionSerializer(serializers.ModelSerializer):
 
+class ImpressionSerializer(serializers.ModelSerializer):
+    player = PlayerSerializer(read_only=True)
+    video = VideoSerializer(read_only=True)
     class Meta:
         model = Impression
         fields = ('timestamp','player','video','playlist', 'id')
 
 
 
-## note to self: necessary to have serializers for each model represented?
-## do they require fields to mirror each ForeignKey link?
 

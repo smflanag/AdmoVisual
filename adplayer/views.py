@@ -5,7 +5,7 @@ from adplayer.serializers import PlayerSerializer,PlaylistSerializer,VideoSerial
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework import renderers
+from rest_framework import renderers, permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -49,8 +49,17 @@ class VideoViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    queryset = Video.objects.all()
+    def get_queryset(self):
+        return Video.objects.all()
     serializer_class = VideoSerializer
+
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    # def get_queryset(self):
+    #     return self.request.user.videos.all()
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class ImpressionViewSet(viewsets.ModelViewSet):

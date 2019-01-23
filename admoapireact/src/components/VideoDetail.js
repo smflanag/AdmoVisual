@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -17,8 +16,11 @@ class VideoDetail extends Component {
     };
   render() {
       return (
-        <div>
-            <span>{this.state.name}</span>
+        <div><p>Name: {this.state.name}</p>
+
+            <p>URL: {this.state.url}</p>
+
+            <p>PlaylistID: {this.state.playlist}</p>
         </div>
       );
   }
