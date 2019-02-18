@@ -29,21 +29,21 @@ playlist_detail = PlaylistViewSet.as_view({
 #     'patch': 'partial_update',
 #     'delete': 'destroy'
 # })
-impression_list = ImpressionViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-impression_detail = ImpressionViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
+# impression_list = ImpressionViewSet.as_view({
+#     'get': 'list',
+#     'post': 'create'
+# })
+# impression_detail = ImpressionViewSet.as_view({
+#     'get': 'retrieve',
+#     'put': 'update',
+#     'patch': 'partial_update',
+#     'delete': 'destroy'
+# })
 
 router = DefaultRouter()
-# router.register(r'playlists', views.PlaylistViewSet)
+router.register('playlists', views.PlaylistViewSet, 'playlists')
 router.register('videos', views.VideoViewSet, 'videos')
-# router.register(r'impressions', views.ImpressionViewSet)
+router.register('impressions', views.ImpressionViewSet, 'impressions')
 #
 # urlpatterns = [url(r'^',include(router.urls))]
 
@@ -74,12 +74,12 @@ urlpatterns = [
     #url(r'^impressions/$',views.impression_list),
     #url(r'^impressions/$',views.ImpressionList.as_view()),
 
-    url(r'^impressions$', impression_list, name='impression_list'),
+    # url(r'^impressions$', impression_list, name='impression_list'),
 
     #url(r'^impression/(?P<pk>[0-9]+)/$',views.impression_detail),
     #url(r'^impression/(?P<pk>[0-9]+)/$',views.ImpressionDetail.as_view()),
 
-    url(r'^impression/(?P<pk>[0-9]+)$', impression_detail, name='impression_detail'),
+    # url(r'^impression/(?P<pk>[0-9]+)$', impression_detail, name='impression_detail'),
 
 
 ]

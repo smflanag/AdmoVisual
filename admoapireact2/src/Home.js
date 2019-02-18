@@ -1,22 +1,35 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
-
-
 import {videos, auth} from "./actions/index";
 
 
 
 class Home extends Component {
-    componentDidMount() {
-        this.props.fetchVideos();
-    }
-
     state = {
         name: "",
         url: "",
         playlist: "",
         updateVideoId: null,
+        dropdownPlaylists: [],
+        selectedPlaylist: "",
+        validationError: ""
     }
+
+    componentDidMount() {
+        this.props.fetchVideos();
+        fetch("http://127.0.0.1:8000/api/playlists/")
+      .then((response) => {
+        return response.json();
+      })
+      .then(data => {
+        let playlistsFromApi = data.map(dropdownPlaylist => { return {value: dropdownPlaylist.id, display: dropdownPlaylist.name} })
+        this.setState({ dropdownPlaylists: [{value: '', display: '(Select the playlist)'}].concat(playlistsFromApi) });
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+
+
 
     resetForm = () => {
         this.setState({name: "", url: "", playlist: "", updateVideoId: null});
@@ -30,9 +43,9 @@ class Home extends Component {
     submitVideo = (e) => {
         e.preventDefault();
         if (this.state.updateVideoId === null) {
-            this.props.addVideo(this.state.name, this.state.url, this.state.playlist).then(this.resetForm)
+            this.props.addVideo(this.state.name, this.state.url, this.state.selectedPlaylist).then(this.resetForm)
         } else {
-            this.props.updateVideo(this.state.updateVideoId, this.state.name, this.state.url, this.state.playlist).then(this.resetForm);
+            this.props.updateVideo(this.state.updateVideoId, this.state.name, this.state.url, this.state.selectedPlaylist).then(this.resetForm);
         }
     }
 
@@ -63,11 +76,11 @@ class Home extends Component {
                     placeholder="Enter url here..."
                     onChange={(e) => this.setState({url: e.target.value})}
                     required />
-                <input
-                    value={this.state.playlist}
-                    placeholder="Enter playlist ID here..."
-                    onChange={(e) => this.setState({playlist: e.target.value})}
-                    required />
+
+               <select value={this.state.selectedPlaylist}
+                onChange={(e) => this.setState({selectedPlaylist: e.target.value, validationError: e.target.value === "" ? "You must select the playlist" : ""})}>
+          {this.state.dropdownPlaylists.map((dropdownPlaylist) => <option key={dropdownPlaylist.value} value={dropdownPlaylist.value}>{dropdownPlaylist.display}</option>)}
+        </select>
                 <button onClick={this.resetForm}>Reset</button>
                 <input type="submit" value="Save Video" />
             </form>

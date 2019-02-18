@@ -39,7 +39,7 @@ class LoginUserSerializer(serializers.Serializer):
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
-        fields = ('name',)
+        fields = ('name', 'id')
 
 
 class VideoSerializer(serializers.ModelSerializer):
