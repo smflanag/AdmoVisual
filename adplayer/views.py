@@ -1,5 +1,5 @@
 from adplayer.models import Player,Playlist,Video,Impression
-from adplayer.serializers import PlayerSerializer,PlaylistSerializer,VideoSerializer,ImpressionSerializer
+from adplayer.serializers import PlayerSerializer,PlaylistSerializer,VideoSerializer,ImpressionViewSerializer, ImpressionAddSerializer
 
 
 from rest_framework.response import Response
@@ -53,7 +53,8 @@ class VideoViewSet(viewsets.ModelViewSet):
         return Video.objects.all()
     serializer_class = VideoSerializer
 
-    permission_classes = [permissions.IsAuthenticated, ]
+    # permission_classes = [permissions.IsAuthenticated, ]
+    # removed for CRUD in UI
 
     # def get_queryset(self):
     #     return self.request.user.videos.all()
@@ -68,7 +69,30 @@ class ImpressionViewSet(viewsets.ModelViewSet):
     `update` and `destroy` actions.
     """
     queryset = Impression.objects.all()
-    serializer_class = ImpressionSerializer
+    serializer_class = ImpressionViewSerializer
+
+    # def perform_create(self, serializer):
+    #     serializer.save()
+
+class ImpressionAddSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
+    queryset = Impression.objects.all()
+    serializer_class = ImpressionAddSerializer
+
+    # def perform_create(self, serializer):
+    #     serializer.save()
+
+
+class PlayerViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
 
 
 #generic classes

@@ -8,7 +8,7 @@ export default function impressions(state=initialState, action) {
   switch (action.type) {
 
     case 'FETCH_IMPRESSIONS':
-        return [...state, ...action.impressions];
+        return action.impressions;
 
     case 'ADD_IMPRESSION':
       return [...state, action.impression];

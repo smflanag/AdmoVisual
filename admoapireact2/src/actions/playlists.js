@@ -1,4 +1,4 @@
-export function fetchImpressions() {
+export function fetchPlaylists() {
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
     let {token} = getState().auth;
@@ -7,7 +7,7 @@ export function fetchImpressions() {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch("http://127.0.0.1:8000/impressions", {headers, })
+    return fetch("http://127.0.0.1:8000/api/playlists/", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -20,7 +20,7 @@ export function fetchImpressions() {
       })
       .then(res => {
         if (res.status === 200) {
-          return dispatch({type: 'FETCH_IMPRESSIONS', impressions: res.data});
+          return dispatch({type: 'FETCH_PLAYLISTS', playlists: res.data});
         } else if (res.status === 401 || res.status === 403) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
@@ -29,7 +29,7 @@ export function fetchImpressions() {
   }
 }
 
-export function addImpression(player, video, playlist) {
+export function addPlaylist(name) {
   return (dispatch, getState) => {
     let headers = {"Content-Type": "application/json"};
     let {token} = getState().auth;
@@ -38,12 +38,8 @@ export function addImpression(player, video, playlist) {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var timestamp = date+' '+time;
-    let body = JSON.stringify({timestamp, player, video, playlist});
-    return fetch("http://127.0.0.1:8000/api/impressions/", {headers, method: "POST", body})
+    let body = JSON.stringify({name});
+    return fetch("http://127.0.0.1:8000/api/playlists/", {headers, method: "POST", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -56,7 +52,7 @@ export function addImpression(player, video, playlist) {
       })
       .then(res => {
         if (res.status === 201) {
-          return dispatch({type: 'ADD_IMPRESSION', impression: res.data});
+          return dispatch({type: 'ADD_PLAYLIST', playlist: res.data});
         } else if (res.status === 401 || res.status === 403) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
@@ -65,8 +61,43 @@ export function addImpression(player, video, playlist) {
   }
 }
 
+export function updatePlaylist(index, name,) {
+  return (dispatch, getState) => {
 
-export function deleteImpression(index) {
+    let headers = {"Content-Type": "application/json"};
+    let {token} = getState().auth;
+
+    if (token) {
+      headers["Authorization"] = `Token ${token}`;
+    }
+
+    let body = JSON.stringify({name});
+    let playlistId = getState().playlists[index].id;
+    let base_url = "http://127.0.0.1:8000/api/playlists/"+playlistId+"/";
+
+    return fetch(base_url, {headers, method: "PUT", body})
+      .then(res => {
+        if (res.status < 500) {
+          return res.json().then(data => {
+            return {status: res.status, data};
+          })
+        } else {
+          console.log("Server Error!");
+          throw res;
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          return dispatch({type: 'UPDATE_PLAYLIST', playlist: res.data, index});
+        } else if (res.status === 401 || res.status === 403) {
+          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
+          throw res.data;
+        }
+      })
+  }
+}
+
+export function deletePlaylist(index) {
   return (dispatch, getState) => {
 
     let headers = {"Content-Type": "application/json"};
@@ -76,8 +107,8 @@ export function deleteImpression(index) {
       headers["Authorization"] = `Token ${token}`;
     }
     console.log(getState());
-    let impressionId = getState().impressions[index].id;
-    let base_url = "http://127.0.0.1:8000/api/impressions/"+impressionId+"/";
+    let playlistId = getState().playlists[index].id;
+    let base_url = "http://127.0.0.1:8000/api/playlists/"+playlistId+"/";
 
     return fetch(base_url, {headers, method: "DELETE"})
       .then(res => {
@@ -94,10 +125,11 @@ export function deleteImpression(index) {
       })
       .then(res => {
         if (res.status === 204) {
-          return dispatch({type: 'DELETE_IMPRESSION', index});
+          return dispatch({type: 'DELETE_PLAYLIST', index});
         } else if (res.status === 401 || res.status === 403) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
         }
       })
-  }}
+  }
+}

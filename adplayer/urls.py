@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 from adplayer import views
 
-from adplayer.views import PlaylistViewSet, VideoViewSet, ImpressionViewSet
+from adplayer.views import PlaylistViewSet, VideoViewSet, ImpressionAddSet, ImpressionViewSet
 
 playlist_list = PlaylistViewSet.as_view({
     'get': 'list',
@@ -29,10 +29,10 @@ playlist_detail = PlaylistViewSet.as_view({
 #     'patch': 'partial_update',
 #     'delete': 'destroy'
 # })
-# impression_list = ImpressionViewSet.as_view({
-#     'get': 'list',
-#     'post': 'create'
-# })
+impression_list = ImpressionViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
 # impression_detail = ImpressionViewSet.as_view({
 #     'get': 'retrieve',
 #     'put': 'update',
@@ -43,7 +43,8 @@ playlist_detail = PlaylistViewSet.as_view({
 router = DefaultRouter()
 router.register('playlists', views.PlaylistViewSet, 'playlists')
 router.register('videos', views.VideoViewSet, 'videos')
-router.register('impressions', views.ImpressionViewSet, 'impressions')
+router.register('impressions', views.ImpressionAddSet, 'impressions')
+router.register('players', views.PlayerViewSet, 'players')
 #
 # urlpatterns = [url(r'^',include(router.urls))]
 
@@ -71,10 +72,13 @@ urlpatterns = [
 
     ##url(r'^videos/(?P<pk>[0-9]+)$', video_detail, name='video_detail'),
 
-    #url(r'^impressions/$',views.impression_list),
+    # url(r'^impressions/$',views.impression_list),
     #url(r'^impressions/$',views.ImpressionList.as_view()),
 
-    # url(r'^impressions$', impression_list, name='impression_list'),
+    url(r'^impressions$', views.ImpressionViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+}), name='impression_list'),
 
     #url(r'^impression/(?P<pk>[0-9]+)/$',views.impression_detail),
     #url(r'^impression/(?P<pk>[0-9]+)/$',views.ImpressionDetail.as_view()),

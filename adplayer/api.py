@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 
 from adplayer.models import Playlist,Player,Video,Impression
-from adplayer.serializers import PlaylistSerializer, PlayerSerializer, VideoSerializer, ImpressionSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer
+from adplayer.serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer
 
 
 class RegistrationAPI(generics.GenericAPIView):

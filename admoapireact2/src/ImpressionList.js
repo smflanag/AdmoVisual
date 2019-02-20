@@ -1,83 +1,74 @@
 import React, { Component } from "react";
-//import axios from 'axios';
-//import ImpressionList from './components/Impressions';
 import {connect} from 'react-redux';
+import { impressions, auth} from "./actions/index";
 
-
-import {impressions, auth} from "./actions/index";
-
-//class AllImpressionList extends Component {
-//    // default State object
-//    state = {
-//        impressions: []
-//    };
-//
-//    componentDidMount() {
-//        axios
-//        .get("http://127.0.0.1:8000/impressions")
-//        .then(response => {
-//        //create an array of videos only with relevant data
-//            const newImpressions = response.data.map(i => {
-//            return {
-//                id: i.id,
-//                timestamp: i.timestamp,
-//                player: i.player,
-//                video: i.video,
-//                playlist: i.playlist
-//                };
-//            });
-//        //create a new "State" object without mutating the original State object
-//            const newState = Object.assign({}, this.state, {
-//                impressions: newImpressions
-//            });
-//        // store the new state object in the component's state
-//            this.setState(newState);
-//        })
-//        .catch(error => console.log(error));
-//    };
-//
-//  render() {
-//    return (
-//      <div>
-//        <ImpressionList impressions={this.state.impressions} />
-//      </div>
-//    );
-//  }
-//}
-//
-//export default AllImpressionList;
-//
 
 
 class AllImpressionList extends Component {
-    componentDidMount() {
-        this.props.fetchImpressions();
+    state = {
+//        player: "",
+//        video: "",
+//        playlist: "",
+        updateImpressionId: null,
+        dropdownPlayers: [],
+        selectedPlayer: "",
+        dropdownPlaylists: [],
+        selectedPlaylist: "",
+        dropdownVideos: [],
+        selectedVideo: "",
+        validationError: ""
     }
 
-    state = {
-        player: "",
-        video: "",
-        playlist: "",
-        updateImpressionId: null,
+    componentDidMount() {
+        this.props.fetchImpressions();
+
+        fetch("http://127.0.0.1:8000/api/playlists/")
+      .then((response) => {
+        return response.json();
+      })
+      .then(data => {
+        let playlistsFromApi = data.map(dropdownPlaylist => { return {value: dropdownPlaylist.id, display: dropdownPlaylist.name} })
+        this.setState({ dropdownPlaylists: [{value: '', display: '(Select the playlist)'}].concat(playlistsFromApi) });
+      }).catch(error => {
+        console.log(error);
+      });
+
+      fetch("http://127.0.0.1:8000/api/videos/")
+      .then((response) => {
+        return response.json();
+      })
+      .then(data => {
+        let videosFromApi = data.map(dropdownVideo => { return {value: dropdownVideo.id, display: dropdownVideo.name} })
+        this.setState({ dropdownVideos: [{value: '', display: '(Select the video)'}].concat(videosFromApi) });
+      }).catch(error => {
+        console.log(error);
+      });
+      fetch("http://127.0.0.1:8000/api/players/")
+      .then((response) => {
+        return response.json();
+      })
+      .then(data => {
+        let playersFromApi = data.map(dropdownPlayer => { return {value: dropdownPlayer.id, display: dropdownPlayer.name} })
+        this.setState({ dropdownPlayers: [{value: '', display: '(Select the player device name)'}].concat(playersFromApi) });
+      }).catch(error => {
+        console.log(error);
+      });
     }
 
     resetForm = () => {
         this.setState({player: "",video: "", playlist: "", updateImpressionId: null});
     }
 
-    selectForEdit = (id) => {
-        let impression = this.props.impressions[id];
-        this.setState({player: impression.player, video: impression.video, playlist: impression.playlist, updateImpressionId: id});
-    }
+//    selectForEdit = (id) => {
+//        let impression = this.props.impressions[id];
+//        this.setState({player: impression.player, video: impression.video, playlist: impression.playlist, updateImpressionId: id});
+//    }
 
     submitImpression = (e) => {
         e.preventDefault();
         if (this.state.updateImpressionId === null) {
-            this.props.addImpression(this.state.player, this.state.video, this.state.playlist).then(this.resetForm)
+            this.props.addImpression(this.state.selectedPlayer, this.state.selectedVideo, this.state.selectedPlaylist).then(this.resetForm)
         }
-//        else {
-//            this.props.updateVideo(this.state.updateVideoId, this.state.name, this.state.url, this.state.playlist).then(this.resetForm);
-//        } ##update above for impression
     }
 
 
@@ -87,27 +78,22 @@ class AllImpressionList extends Component {
       <div>
 
 
-        <div style={{textAlign: "right"}}>
-          {this.props.user.username} <a onClick={this.props.logout}>logout</a>
-        </div>
+
 
         <h3>Add Impression</h3>
             <form onSubmit={this.submitImpression}>
-                <input
-                    value={this.state.player}
-                    placeholder="Enter player ID here..."
-                    onChange={(e) => this.setState({player: e.target.value})}
-                    required />
-                <input
-                    value={this.state.video}
-                    placeholder="Enter video ID here..."
-                    onChange={(e) => this.setState({video: e.target.value})}
-                    required />
-                <input
-                    value={this.state.playlist}
-                    placeholder="Enter playlist ID here..."
-                    onChange={(e) => this.setState({playlist: e.target.value})}
-                    required />
+                <select value={this.state.selectedPlayer}
+                onChange={(e) => this.setState({selectedPlayer: e.target.value, validationError: e.target.value === "" ? "You must select the player" : ""})}>
+          {this.state.dropdownPlayers.map((dropdownPlayer) => <option key={dropdownPlayer.value} value={dropdownPlayer.value}>{dropdownPlayer.display}</option>)}
+        </select>
+                <select value={this.state.selectedVideo}
+                onChange={(e) => this.setState({selectedVideo: e.target.value, validationError: e.target.value === "" ? "You must select the video" : ""})}>
+          {this.state.dropdownVideos.map((dropdownVideo) => <option key={dropdownVideo.value} value={dropdownVideo.value}>{dropdownVideo.display}</option>)}
+        </select>
+                <select value={this.state.selectedPlaylist}
+                onChange={(e) => this.setState({selectedPlaylist: e.target.value, validationError: e.target.value === "" ? "You must select the playlist" : ""})}>
+          {this.state.dropdownPlaylists.map((dropdownPlaylist) => <option key={dropdownPlaylist.value} value={dropdownPlaylist.value}>{dropdownPlaylist.display}</option>)}
+        </select>
                 <button onClick={this.resetForm}>Reset</button>
                 <input type="submit" value="Save Impression" />
             </form>
@@ -121,8 +107,8 @@ class AllImpressionList extends Component {
                     <td>{impression.timestamp}</td>
                     <td>{impression.player.name}</td>
                     <td>{impression.video.name}</td>
-                    <td>{impression.playlist}</td>
-                    <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
+                    <td>{impression.playlist.name}</td>
+
                     <td><button onClick={() => this.props.deleteImpression(id)}>delete</button></td>
                   </tr>
                 ))}
@@ -148,9 +134,7 @@ const mapDispatchToProps = dispatch => {
     addImpression: (player, video, playlist) => {
       return dispatch(impressions.addImpression(player, video, playlist));
     },
-//    updateImpression: (id, player, video, playlist) => {
-//      return dispatch(impressions.updateVideo(id, player, video, playlist));
-//    },
+
     deleteImpression: (id) => {
       dispatch(impressions.deleteImpression(id));
     },

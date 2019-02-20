@@ -49,19 +49,24 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class PlayerSerializer(serializers.ModelSerializer):
-    playlist = serializers.CharField(source='playlist.id', read_only=True)  ##?
+
     class Meta:
         model = Player
-        fields = ('name', 'playlist')
+        fields = ('name', 'id')
 
 
-class ImpressionSerializer(serializers.ModelSerializer):
+class ImpressionViewSerializer(serializers.ModelSerializer):
     player = PlayerSerializer(read_only=True)
     video = VideoSerializer(read_only=True)
+    playlist = PlaylistSerializer(read_only=True)
+
     class Meta:
         model = Impression
         fields = ('timestamp','player','video','playlist', 'id')
 
 
-
+class ImpressionAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Impression
+        fields = ('timestamp','player','video','playlist', 'id')
 

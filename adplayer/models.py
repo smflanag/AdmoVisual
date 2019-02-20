@@ -24,7 +24,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 class Playlist(models.Model):
     name = models.CharField(max_length=126)
 
-
     def __str__(self):
         return self.name
 
@@ -36,9 +35,6 @@ class Video(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
 
 
 class Player(models.Model):

@@ -5,15 +5,7 @@ import {videos, auth} from "./actions/index";
 
 
 class Home extends Component {
-    state = {
-        name: "",
-        url: "",
-        playlist: "",
-        updateVideoId: null,
-        dropdownPlaylists: [],
-        selectedPlaylist: "",
-        validationError: ""
-    }
+
 
     componentDidMount() {
         this.props.fetchVideos();
@@ -49,7 +41,15 @@ class Home extends Component {
         }
     }
 
-
+    state = {
+        name: "",
+        url: "",
+        playlist: "",
+        updateVideoId: null,
+        dropdownPlaylists: [],
+        selectedPlaylist: "",
+        validationError: ""
+    }
 
   render() {
     return (
