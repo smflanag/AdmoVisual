@@ -8,7 +8,7 @@ export default function videos(state=initialState, action) {
   switch (action.type) {
 
     case 'FETCH_VIDEOS':
-        return [...state, ...action.videos];
+        return action.videos;
 
     case 'ADD_VIDEO':
       return [...state, action.video];
