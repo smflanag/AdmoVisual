@@ -54,15 +54,15 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h2>Welcome to AdmoVisual</h2>
+        <div className="col-md-6"><h2>Welcome to AdmoVisual</h2>
         <p>Use the tabs above to navigate to the section you wish to use.</p>
 
-        <p>In case of any issues, email us at help@admovisual.com.</p>
+        <p>In case of any issues, email us at help@admovisual.com.</p></div>
 
-
+        <div className="col-md-2">
         <div style={{textAlign: "right"}}>
           {this.props.user.username} <a onClick={this.props.logout}>logout</a>
-        </div>
+        </div></div>
 
         <h3>Add video</h3>
             <form onSubmit={this.submitVideo}>
@@ -86,8 +86,17 @@ class Home extends Component {
             </form>
 
 
-            <h3>Videos</h3>
-            <table>
+            <h2>Videos</h2>
+            <div className="ui card">
+            <div className="content">
+            <table className="ui celled striped table">
+            <thead>
+            <tr>
+            <th className="left aligned">Video Name</th>
+            <th>Video Url</th>
+            <th>Playlist ID</th>
+            </tr>
+            </thead>
               <tbody>
                 {this.props.videos.map((video, id) => (
                   <tr key={`video_${video.id}`}>
@@ -100,6 +109,7 @@ class Home extends Component {
                 ))}
               </tbody>
             </table>
+            </div></div>
         </div>
     )
   }

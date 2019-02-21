@@ -94,13 +94,23 @@ class AllImpressionList extends Component {
                 onChange={(e) => this.setState({selectedPlaylist: e.target.value, validationError: e.target.value === "" ? "You must select the playlist" : ""})}>
           {this.state.dropdownPlaylists.map((dropdownPlaylist) => <option key={dropdownPlaylist.value} value={dropdownPlaylist.value}>{dropdownPlaylist.display}</option>)}
         </select>
-                <button onClick={this.resetForm}>Reset</button>
+                <button className="ui button" onClick={this.resetForm}>Reset</button>
                 <input type="submit" value="Save Impression" />
             </form>
 
 
-            <h3>Impressions</h3>
-            <table>
+            <h2>Impressions</h2>
+            <div className="ui card">
+            <div className="content">
+            <table >
+            <thead>
+            <tr>
+            <th className="left aligned">Timestamp</th>
+            <th>Device Name</th>
+            <th>Video Name</th>
+            <th>Playlist Name</th>
+            </tr>
+            </thead>
               <tbody>
                 {this.props.impressions.map((impression, id) => (
                   <tr key={`impression_${impression.id}`}>
@@ -109,11 +119,12 @@ class AllImpressionList extends Component {
                     <td>{impression.video.name}</td>
                     <td>{impression.playlist.name}</td>
 
-                    <td><button onClick={() => this.props.deleteImpression(id)}>delete</button></td>
+                    <td><button className="ui button" onClick={() => this.props.deleteImpression(id)}>delete</button></td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            </div></div>
         </div>
     )
   }
