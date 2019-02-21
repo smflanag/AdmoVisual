@@ -9,7 +9,6 @@ class VideoDetail extends Component {
         .get("http://127.0.0.1:8000/api/videos/" + this.props.match.params.videoId+"/")
         .then(response => {
             const video = response.data;
-            // store the new state object in the component's state
             this.setState(video);
         })
         .catch(error => console.log(error));
@@ -17,13 +16,14 @@ class VideoDetail extends Component {
   render() {
       return (
         <div className="ui card">
-        <div className="content">
-        <p className="header"><b>Name:</b> {this.state.name}</p>
-
-            <p><b>URL:</b> <a href="{this.state.url}">{this.state.url}</a></p>
-
-            <p><b>PlaylistID:</b> {this.state.playlist}</p>
-        </div></div>
+            <div className="content">
+                <p className="header">
+                    <b>Name:</b>
+                    {this.state.name}</p>
+                <p><b>URL:</b> <a href="">{this.state.url}</a></p>
+                <p><b>PlaylistID:</b> {this.state.playlist}</p>
+            </div>
+        </div>
       );
   }
 }

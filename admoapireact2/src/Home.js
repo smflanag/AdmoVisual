@@ -3,9 +3,7 @@ import {connect} from 'react-redux';
 import {videos, auth} from "./actions/index";
 
 
-
 class Home extends Component {
-
 
     componentDidMount() {
         this.props.fetchVideos();
@@ -20,8 +18,6 @@ class Home extends Component {
         console.log(error);
       });
     }
-
-
 
     resetForm = () => {
         this.setState({name: "", url: "", playlist: "", updateVideoId: null});
@@ -84,7 +80,6 @@ class Home extends Component {
                 <button onClick={this.resetForm}>Reset</button>
                 <input type="submit" value="Save Video" />
             </form>
-
 
             <h2>Videos</h2>
             <div className="ui card">
