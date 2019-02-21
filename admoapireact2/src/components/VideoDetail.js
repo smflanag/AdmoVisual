@@ -6,7 +6,7 @@ class VideoDetail extends Component {
     state = {};
     componentDidMount() {
         axios
-        .get("http://127.0.0.1:8000/videos/" + this.props.match.params.videoId)
+        .get("http://127.0.0.1:8000/api/videos/" + this.props.match.params.videoId+"/")
         .then(response => {
             const video = response.data;
             // store the new state object in the component's state
@@ -16,12 +16,14 @@ class VideoDetail extends Component {
     };
   render() {
       return (
-        <div><p>Name: {this.state.name}</p>
+        <div className="ui card">
+        <div className="content">
+        <p className="header"><b>Name:</b> {this.state.name}</p>
 
-            <p>URL: {this.state.url}</p>
+            <p><b>URL:</b> <a href="{this.state.url}">{this.state.url}</a></p>
 
-            <p>PlaylistID: {this.state.playlist}</p>
-        </div>
+            <p><b>PlaylistID:</b> {this.state.playlist}</p>
+        </div></div>
       );
   }
 }
