@@ -1,9 +1,8 @@
 from django.conf.urls import url,include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from rest_framework.urlpatterns import format_suffix_patterns
 from adplayer import views
-from adplayer.views import PlaylistViewSet, VideoViewSet, ImpressionAddSet, ImpressionViewSet
+from adplayer.views import PlaylistViewSet, ImpressionViewSet
 
 
 playlist_list = PlaylistViewSet.as_view({
