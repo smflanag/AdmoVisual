@@ -20,7 +20,7 @@ class Home extends Component {
     }
 
     resetForm = () => {
-        this.setState({name: "", url: "", playlist: "", updateVideoId: null});
+        this.setState({name: "", url: "", selectedPlaylist: "", updateVideoId: null});
     }
 
     selectForEdit = (id) => {
@@ -83,7 +83,6 @@ class Home extends Component {
 
             <h2>Videos</h2>
             <div className="ui card">
-            <div className="content">
             <table className="ui celled striped table">
             <thead>
             <tr>
@@ -98,13 +97,13 @@ class Home extends Component {
                     <td>{video.name}</td>
                     <td>{video.url}</td>
                     <td>{video.playlist}</td>
-                    <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
+                    <td><button className="ui primary button" onClick={() => this.selectForEdit(id)}>edit</button></td>
                     <td><button onClick={() => this.props.deleteVideo(id)}>delete</button></td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            </div></div>
+            </div>
         </div>
     )
   }

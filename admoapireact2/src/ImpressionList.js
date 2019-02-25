@@ -56,7 +56,7 @@ class AllImpressionList extends Component {
     }
 
     resetForm = () => {
-        this.setState({player: "",video: "", playlist: "", updateImpressionId: null});
+        this.setState({selectedPlayer: "",selectedVideo: "", selectedPlaylist: "", updateImpressionId: null});
     }
 
 //    selectForEdit = (id) => {
@@ -67,7 +67,9 @@ class AllImpressionList extends Component {
     submitImpression = (e) => {
         e.preventDefault();
         if (this.state.updateImpressionId === null) {
-            this.props.addImpression(this.state.selectedPlayer, this.state.selectedVideo, this.state.selectedPlaylist).then(this.resetForm)
+            this.props.addImpression(this.state.selectedPlayer, this.state.selectedVideo, this.state.selectedPlaylist)
+                .then(this.props.fetchImpressions)
+                .then(this.resetForm)
         }
     }
 
@@ -76,8 +78,9 @@ class AllImpressionList extends Component {
   render() {
     return (
       <div>
-
-
+        <div className="center">
+            <div id="donutchart" style={{width: 700, height:400}}></div>
+        </div>
 
 
         <h3>Add Impression</h3>
@@ -100,12 +103,11 @@ class AllImpressionList extends Component {
 
 
             <h2>Impressions</h2>
-            <div className="ui card">
-            <div className="content">
+            <div>
             <table >
             <thead>
             <tr>
-            <th className="left aligned">Timestamp</th>
+            <th>Timestamp</th>
             <th>Device Name</th>
             <th>Video Name</th>
             <th>Playlist Name</th>
@@ -124,7 +126,7 @@ class AllImpressionList extends Component {
                 ))}
               </tbody>
             </table>
-            </div></div>
+            </div>
         </div>
     )
   }

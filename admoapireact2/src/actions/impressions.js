@@ -56,7 +56,7 @@ export function addImpression(player, video, playlist) {
       })
       .then(res => {
         if (res.status === 201) {
-          return dispatch({type: 'ADD_IMPRESSION', impression: res.data});
+          return;
         } else if (res.status === 401 || res.status === 403) {
           dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
           throw res.data;
@@ -101,3 +101,6 @@ export function deleteImpression(index) {
         }
       })
   }}
+
+
+
