@@ -28,7 +28,7 @@ SECRET_KEY = 'y44hftdmy5(by-&tm4c-8*0$j6c$seio3k_k(omd@23--h(7b0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['admoapi.herokuapp.com']
+ALLOWED_HOSTS = ['cryptic-journey-97826.herokuapp.com']
 
 
 # Application definition
