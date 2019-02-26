@@ -7,7 +7,7 @@ export function fetchPlaylists() {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch("http://127.0.0.1:8000/api/playlists/", {headers, })
+    return fetch("h/api/playlists/", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -39,7 +39,7 @@ export function addPlaylist(name) {
     }
 
     let body = JSON.stringify({name});
-    return fetch("http://127.0.0.1:8000/api/playlists/", {headers, method: "POST", body})
+    return fetch("/api/playlists/", {headers, method: "POST", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -73,7 +73,7 @@ export function updatePlaylist(index, name,) {
 
     let body = JSON.stringify({name});
     let playlistId = getState().playlists[index].id;
-    let base_url = "http://127.0.0.1:8000/api/playlists/"+playlistId+"/";
+    let base_url = "/api/playlists/"+playlistId+"/";
 
     return fetch(base_url, {headers, method: "PUT", body})
       .then(res => {
@@ -108,7 +108,7 @@ export function deletePlaylist(index) {
     }
     console.log(getState());
     let playlistId = getState().playlists[index].id;
-    let base_url = "http://127.0.0.1:8000/api/playlists/"+playlistId+"/";
+    let base_url = "/api/playlists/"+playlistId+"/";
 
     return fetch(base_url, {headers, method: "DELETE"})
       .then(res => {

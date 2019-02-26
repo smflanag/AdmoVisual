@@ -22,7 +22,7 @@ class AllImpressionList extends Component {
     componentDidMount() {
         this.props.fetchImpressions();
 
-        fetch("http://127.0.0.1:8000/api/playlists/")
+        fetch("/api/playlists/")
       .then((response) => {
         return response.json();
       })
@@ -33,7 +33,7 @@ class AllImpressionList extends Component {
         console.log(error);
       });
 
-      fetch("http://127.0.0.1:8000/api/videos/")
+      fetch("/api/videos/")
       .then((response) => {
         return response.json();
       })
@@ -43,7 +43,7 @@ class AllImpressionList extends Component {
       }).catch(error => {
         console.log(error);
       });
-      fetch("http://127.0.0.1:8000/api/players/")
+      fetch("/api/players/")
       .then((response) => {
         return response.json();
       })

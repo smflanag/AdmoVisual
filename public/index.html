@@ -10,7 +10,7 @@
 
             function drawChart() {
 
-            fetch("http://127.0.0.1:8000/impressions")
+            fetch("/impressions")
             .then((response) => {
               return response.json();
             })

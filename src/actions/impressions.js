@@ -7,7 +7,7 @@ export function fetchImpressions() {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch("http://127.0.0.1:8000/impressions", {headers, })
+    return fetch("/impressions", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -43,7 +43,7 @@ export function addImpression(player, video, playlist) {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var timestamp = date+' '+time;
     let body = JSON.stringify({timestamp, player, video, playlist});
-    return fetch("http://127.0.0.1:8000/api/impressions/", {headers, method: "POST", body})
+    return fetch("/api/impressions/", {headers, method: "POST", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -77,7 +77,7 @@ export function deleteImpression(index) {
     }
     console.log(getState());
     let impressionId = getState().impressions[index].id;
-    let base_url = "http://127.0.0.1:8000/api/impressions/"+impressionId+"/";
+    let base_url = "/api/impressions/"+impressionId+"/";
 
     return fetch(base_url, {headers, method: "DELETE"})
       .then(res => {

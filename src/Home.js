@@ -7,7 +7,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.fetchVideos();
-        fetch("http://127.0.0.1:8000/api/playlists/")
+        fetch("/api/playlists/")
       .then((response) => {
         return response.json();
       })

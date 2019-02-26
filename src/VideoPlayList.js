@@ -9,7 +9,7 @@ class VideoPlayList extends Component {
 
     componentDidMount() {
         axios
-        .get("http://127.0.0.1:8000/playlist/current")
+        .get("/playlist/current")
         .then(response => {
             const newVideos = response.data;
             this.setState({videos: newVideos});

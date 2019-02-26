@@ -7,7 +7,7 @@ export function fetchVideos() {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch("http://127.0.0.1:8000/api/videos/", {headers, })
+    return fetch("/api/videos/", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -39,7 +39,7 @@ export function addVideo(name, url, playlist) {
     }
 
     let body = JSON.stringify({name, url, playlist});
-    return fetch("http://127.0.0.1:8000/api/videos/", {headers, method: "POST", body})
+    return fetch("/api/videos/", {headers, method: "POST", body})
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -73,7 +73,7 @@ export function updateVideo(index, name, url, playlist) {
 
     let body = JSON.stringify({name, url, playlist});
     let videoId = getState().videos[index].id;
-    let base_url = "http://127.0.0.1:8000/api/videos/"+videoId+"/";
+    let base_url = "/api/videos/"+videoId+"/";
 
     return fetch(base_url, {headers, method: "PUT", body})
       .then(res => {
@@ -108,7 +108,7 @@ export function deleteVideo(index) {
     }
     console.log(getState());
     let videoId = getState().videos[index].id;
-    let base_url = "http://127.0.0.1:8000/api/videos/"+videoId+"/";
+    let base_url = "/api/videos/"+videoId+"/";
 
     return fetch(base_url, {headers, method: "DELETE"})
       .then(res => {

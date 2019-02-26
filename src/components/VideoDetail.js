@@ -6,7 +6,7 @@ class VideoDetail extends Component {
     state = {};
     componentDidMount() {
         axios
-        .get("http://127.0.0.1:8000/api/videos/" + this.props.match.params.videoId+"/")
+        .get("/api/videos/" + this.props.match.params.videoId+"/")
         .then(response => {
             const video = response.data;
             this.setState(video);
