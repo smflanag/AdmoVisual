@@ -1,8 +1,9 @@
 from django.conf.urls import url,include
-from django.urls import path
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from adplayer import views
 from adplayer.views import PlaylistViewSet, ImpressionViewSet
+from django.views.generic import TemplateView
 
 
 playlist_list = PlaylistViewSet.as_view({
@@ -52,6 +53,7 @@ urlpatterns += [
     url(r'^api/auth/login/$', LoginAPI.as_view()),
     url(r'^api/auth/user/$', UserAPI.as_view()),
     url(r'^api/auth/', include('knox.urls')),
-    url(r'^api/', include(router.urls))
+    url(r'^api/', include(router.urls)),
+    re_path('.*', TemplateView.as_view(template_name='index.html'))
 ]
 
