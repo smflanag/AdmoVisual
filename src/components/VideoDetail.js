@@ -20,7 +20,7 @@ class VideoDetail extends Component {
                 <p className="header">
                     <b>Name:</b>
                     {this.state.name}</p>
-                <p><b>URL:</b> <a href="">{this.state.url}</a></p>
+                <p><b>URL:</b> <a href={this.state.url}>{this.state.url}</a></p>
                 <p><b>PlaylistID:</b> {this.state.playlist}</p>
             </div>
         </div>

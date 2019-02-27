@@ -29,13 +29,13 @@ class Login extends Component {
           )}
           <p>
             <label htmlFor="username">Username</label>
-            <input
+             <input
               type="text" id="username"
               onChange={e => this.setState({username: e.target.value})} />
           </p>
           <p>
             <label htmlFor="password">Password</label>
-            <input
+             <input
               type="password" id="password"
               onChange={e => this.setState({password: e.target.value})} />
           </p>

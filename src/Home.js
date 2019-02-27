@@ -57,7 +57,7 @@ class Home extends Component {
 
         <div className="col-md-2">
         <div style={{textAlign: "right"}}>
-          {this.props.user.username} <a onClick={this.props.logout}>logout</a>
+          {this.props.user.username} <a href="" onClick={this.props.logout}>logout</a>
         </div></div>
 
         <h3>Add video</h3>
