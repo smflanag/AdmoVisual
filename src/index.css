@@ -65,6 +65,5 @@ table, th, td {
 .center {
   margin: auto;
   width: 45%;
-  border: 3px solid green;
   padding: 10px;
 }

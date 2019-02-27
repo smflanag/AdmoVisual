@@ -44,9 +44,7 @@
 
             var options = {
             'title':'Logged impressions by video',
-            pieHole:0.5,
-            width: $(window).width(),
-            height: $(window).height()*0.75
+            pieHole:0.5
               };
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
