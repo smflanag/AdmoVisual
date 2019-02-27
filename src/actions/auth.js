@@ -11,7 +11,7 @@ export function loadUser() {
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
-    return fetch("h/api/auth/user/", {headers, })
+    return fetch("/api/auth/user/", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {

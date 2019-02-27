@@ -79,7 +79,7 @@ class AllImpressionList extends Component {
     return (
       <div>
         <div className="center">
-            <div id="donutchart" style={{width: 700, height:400}}></div>
+            <div id="donutchart" ></div>
         </div>
 
 
