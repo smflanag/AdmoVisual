@@ -4,7 +4,6 @@
     <list default="true" id="71c66003-ec70-4ef9-86bc-5e9ad6cdb841" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/src/ImpressionList.js" afterPath="$PROJECT_DIR$/src/ImpressionList.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -65,17 +64,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="698">
-              <caret line="49" column="14" lean-forward="false" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+            <state relative-caret-position="623">
+              <caret line="46" column="24" lean-forward="false" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImpressionList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ImpressionList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ImpressionList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="146">
@@ -200,8 +199,8 @@
         <option value="$PROJECT_DIR$/build/index.html" />
         <option value="$PROJECT_DIR$/src/actions/auth.js" />
         <option value="$PROJECT_DIR$/src/index.css" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/ImpressionList.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
       </list>
     </option>
   </component>
@@ -638,7 +637,14 @@
       <option name="project" value="LOCAL" />
       <updated>1551284707645</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="resizing of donut chart amended">
+      <created>1551286746001</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1551286746001</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -715,7 +721,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added playlist/current view - returns video details of most recently created playlist (current playlist)" />
     <MESSAGE value="added token authentication, accesible through endpoint and admin page" />
     <MESSAGE value="token authentication updated, accesible through django admin page" />
     <MESSAGE value="CORS issue resolved. Added UI in React." />
@@ -740,7 +745,8 @@
     <MESSAGE value="removed style tag from donutchart div" />
     <MESSAGE value="fixed padding of donut chart" />
     <MESSAGE value="amend padding of donut chart" />
-    <option name="LAST_COMMIT_MESSAGE" value="amend padding of donut chart" />
+    <MESSAGE value="resizing of donut chart amended" />
+    <option name="LAST_COMMIT_MESSAGE" value="resizing of donut chart amended" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1142,18 +1148,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="49" column="14" lean-forward="false" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ImpressionList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
           <caret line="81" column="32" lean-forward="false" selection-start-line="81" selection-start-column="32" selection-end-line="81" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="46" column="24" lean-forward="false" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
           <folding />
         </state>
       </provider>
