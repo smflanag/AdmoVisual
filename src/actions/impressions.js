@@ -7,7 +7,7 @@ export function fetchImpressions() {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch("/impressions", {headers, })
+    return fetch("/impression_list", {headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {

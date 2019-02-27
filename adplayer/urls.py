@@ -38,7 +38,7 @@ router.register('players', views.PlayerViewSet, 'players')
 urlpatterns = [
     url(r'^playlist/current$', playlist_videos, name='playlist_videos'),
     url(r'^playlist_for_player/(?P<pk>[0-9]+)$', playlist_detail, name='playlist_detail'),
-    url(r'^impressions$', views.ImpressionViewSet.as_view({
+    url(r'^impression_list$', views.ImpressionViewSet.as_view({
         'get': 'list',
         'post': 'create'
             }), name='impression_list'),
