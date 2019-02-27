@@ -18,7 +18,7 @@ class VideoDetail extends Component {
         <div className="ui card">
             <div className="content">
                 <p className="header">
-                    <b>Name:</b>
+                    <b>Name: </b>
                     {this.state.name}</p>
                 <p><b>URL:</b> <a href={this.state.url}>{this.state.url}</a></p>
                 <p><b>PlaylistID:</b> {this.state.playlist}</p>

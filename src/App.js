@@ -54,8 +54,7 @@ class RootContainerComponent extends Component {
             <li><NavLink to="/">Videos</NavLink></li>
             <li><NavLink to="/current_playlist">Current Playlist</NavLink></li>
             <li><NavLink to="/impressions">Impressions</NavLink></li>
-            <li><NavLink to="/login">Login</NavLink></li>
-            <li><NavLink to="/register">Register</NavLink></li>
+
           </ul>
 
             <Switch>
