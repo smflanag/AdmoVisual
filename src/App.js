@@ -50,8 +50,8 @@ class RootContainerComponent extends Component {
       <div>
 
           <ul className="header">
-            <li className="home"><NavLink to="">AdmoVisual</NavLink></li>
-            <li><NavLink to="/">Videos</NavLink></li>
+            <li className="home"><NavLink to="/">AdmoVisual</NavLink></li>
+            <li><NavLink to="/videos">Videos</NavLink></li>
             <li><NavLink to="/current_playlist">Current Playlist</NavLink></li>
             <li><NavLink to="/impressions">Impressions</NavLink></li>
 
@@ -59,6 +59,7 @@ class RootContainerComponent extends Component {
 
             <Switch>
               <PrivateRoute exact path="/" component={Home} />
+              <PrivateRoute exact path="/videos" component={Videos} />
               <PrivateRoute exact path="/current_playlist" component={VideoPlayList} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
