@@ -78,6 +78,11 @@ class AllImpressionList extends Component {
   render() {
     return (
       <div>
+      <div className="col-md-2">
+            <div style={{textAlign: "right"}}>
+              {this.props.user.username} <a href="" onClick={this.props.logout}>logout</a>
+            </div>
+        </div>
         <div className="center">
             <div id="donutchart"></div>
         </div>

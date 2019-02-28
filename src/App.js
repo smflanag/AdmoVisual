@@ -4,6 +4,7 @@ import './App.css';
 import AllImpressionList from "./ImpressionList";
 import VideoPlayList from "./VideoPlayList";
 import Home from "./Home";
+import Videos from "./Videos";
 import VideoDetail from "./components/VideoDetail";
 import Login from "./components/Login";
 import Register from "./components/Register";
