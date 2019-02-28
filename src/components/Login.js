@@ -17,6 +17,15 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
+    <div>
+        <div>
+            <div>
+                <h2>Welcome to AdmoVisual</h2>
+                <p>This application requires an account to navigate.</p>
+                <p>Please log in below, or click the link below to register a new account.</p>
+            </div>
+        </div>
+
       <form onSubmit={this.onSubmit}>
         <fieldset>
           <legend>Login</legend>
@@ -28,13 +37,13 @@ class Login extends Component {
             </ul>
           )}
           <p>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Username </label>
              <input
               type="text" id="username"
               onChange={e => this.setState({username: e.target.value})} />
           </p>
           <p>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password </label>
              <input
               type="password" id="password"
               onChange={e => this.setState({password: e.target.value})} />
@@ -48,6 +57,7 @@ class Login extends Component {
           </p>
         </fieldset>
       </form>
+      </div>
     )
   }
 }

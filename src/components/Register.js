@@ -33,13 +33,13 @@ class Register extends Component {
             </ul>
           )}
           <p>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Username </label>
             <input
               type="text" id="username"
               onChange={e => this.setState({username: e.target.value})} />
           </p>
           <p>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password </label>
             <input
               type="password" id="password"
               onChange={e => this.setState({password: e.target.value})} />
