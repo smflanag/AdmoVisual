@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import { impressions, auth} from "./actions/index";
+import { Chart } from "react-google-charts";
 
 
 
@@ -16,44 +17,85 @@ class AllImpressionList extends Component {
         selectedPlaylist: "",
         dropdownVideos: [],
         selectedVideo: "",
-        validationError: ""
+        validationError: "",
+        chart_data_table:[],
+        chart_options:[]
     }
 
     componentDidMount() {
         this.props.fetchImpressions();
 
         fetch("/api/playlists/")
-      .then((response) => {
-        return response.json();
-      })
-      .then(data => {
-        let playlistsFromApi = data.map(dropdownPlaylist => { return {value: dropdownPlaylist.id, display: dropdownPlaylist.name} })
-        this.setState({ dropdownPlaylists: [{value: '', display: '(Select the playlist)'}].concat(playlistsFromApi) });
-      }).catch(error => {
-        console.log(error);
-      });
+          .then((response) => {
+            return response.json();
+          })
+          .then(data => {
+            let playlistsFromApi = data.map(dropdownPlaylist => { return {value: dropdownPlaylist.id, display: dropdownPlaylist.name} })
+            this.setState({ dropdownPlaylists: [{value: '', display: '(Select the playlist)'}].concat(playlistsFromApi) });
+          }).catch(error => {
+            console.log(error);
+          });
 
-      fetch("/api/videos/")
-      .then((response) => {
-        return response.json();
-      })
-      .then(data => {
-        let videosFromApi = data.map(dropdownVideo => { return {value: dropdownVideo.id, display: dropdownVideo.name} })
-        this.setState({ dropdownVideos: [{value: '', display: '(Select the video)'}].concat(videosFromApi) });
-      }).catch(error => {
-        console.log(error);
-      });
-      fetch("/api/players/")
-      .then((response) => {
-        return response.json();
-      })
-      .then(data => {
-        let playersFromApi = data.map(dropdownPlayer => { return {value: dropdownPlayer.id, display: dropdownPlayer.name} })
-        this.setState({ dropdownPlayers: [{value: '', display: '(Select the player device name)'}].concat(playersFromApi) });
-      }).catch(error => {
-        console.log(error);
-      });
+        fetch("/api/videos/")
+          .then((response) => {
+            return response.json();
+          })
+          .then(data => {
+            let videosFromApi = data.map(dropdownVideo => { return {value: dropdownVideo.id, display: dropdownVideo.name} })
+            this.setState({ dropdownVideos: [{value: '', display: '(Select the video)'}].concat(videosFromApi) });
+          }).catch(error => {
+            console.log(error);
+          });
+
+        fetch("/api/players/")
+          .then((response) => {
+            return response.json();
+          })
+          .then(data => {
+            let playersFromApi = data.map(dropdownPlayer => { return {value: dropdownPlayer.id, display: dropdownPlayer.name} })
+            this.setState({ dropdownPlayers: [{value: '', display: '(Select the player device name)'}].concat(playersFromApi) });
+          }).catch(error => {
+            console.log(error);
+          });
+
+        fetch("/impression_list")
+            .then((response) => {
+              return response.json();
+            })
+            .then(data => {
+              let impressionsFromApi = data.map(Imp => { return Imp.video.name })
+              var imp = new Set()
+              var index;
+              for (index = 0; index < impressionsFromApi.length; ++index) {
+                  imp.add(impressionsFromApi[index])
+                  }
+              var imp_arr = Array.from(imp);
+              var index2;
+              var impression_list = [];
+              for (index2 = 0; index2 < imp_arr.length; ++index2) {
+                  var result = impressionsFromApi.filter(index3 => index3 === imp_arr[index2]).length;
+                  impression_list.push((imp[index2], result))
+                  }
+              var imp_dict = {};
+              var index3;
+              for (index3 = 0; index3 < imp_arr.length; ++index3) {
+                  imp_dict[imp_arr[index3]]=impression_list[index3]
+                }
+
+              var data_table = [["Video", "Number of logged impressions"]];
+              for(var key in imp_dict) {
+                  var value = imp_dict[key];
+                  data_table.push([key,value])
+                  };
+              console.log(data_table);
+              var options = {title:'Logged impressions by video',
+                    pieHole:0.5};
+              this.setState({chart_data_table:data_table, chart_options:options});
+
+                })
     }
+
+
 
     resetForm = () => {
         this.setState({selectedPlayer: "",selectedVideo: "", selectedPlaylist: "", updateImpressionId: null});
@@ -83,9 +125,19 @@ class AllImpressionList extends Component {
               {this.props.user.username} <a href="" onClick={this.props.logout}>logout</a>
             </div>
         </div>
-        <div className="center">
-            <div id="donutchart"></div>
+
+        <div className={"donutchart"}>
+            <Chart
+              chartType="PieChart"
+              options={this.state.chart_options}
+              data={this.state.chart_data_table}
+              width="100%"
+              height="400px"
+              legendToggle
+            />
         </div>
+
+
 
 
         <h3>Add Impression</h3>

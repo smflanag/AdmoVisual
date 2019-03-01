@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
-import {videos, auth} from "./actions/index";
+import {videos, playlists, auth} from "./actions/index";
 
 
 
@@ -22,6 +22,7 @@ class Videos extends Component {
 
     resetForm = () => {
         this.setState({name: "", url: "", selectedPlaylist: "", updateVideoId: null});
+        this.setState({list_name:""});
     }
 
     selectForEdit = (id) => {
@@ -37,6 +38,13 @@ class Videos extends Component {
             this.props.updateVideo(this.state.updateVideoId, this.state.name, this.state.url, this.state.selectedPlaylist).then(this.resetForm);
         }
     }
+    submitPlaylist = (e) => {
+        e.preventDefault();
+        console.log("playlist addition attempt");
+        if (this.state.updatePlaylistId === null) {
+            this.props.addPlaylist(this.state.list_name).then(this.resetForm)
+        }
+    }
 
     state = {
         name: "",
@@ -45,7 +53,8 @@ class Videos extends Component {
         updateVideoId: null,
         dropdownPlaylists: [],
         selectedPlaylist: "",
-        validationError: ""
+        validationError: "",
+        list_name: ""
     }
 
   render() {
@@ -101,6 +110,18 @@ class Videos extends Component {
               </tbody>
             </table>
             </div>
+
+            <h3>Add playlist</h3>
+            <form onSubmit={this.submitPlaylist}>
+                <input
+                    value={this.state.list_name}
+                    placeholder="Enter playlist name here..."
+                    onChange={(e) => this.setState({list_name: e.target.value})}
+                    required />
+                <button onClick={this.resetForm}>Reset</button>
+                <input type="submit" value="Save Playlist" />
+            </form>
+
         </div>
     )
   }
@@ -109,6 +130,7 @@ class Videos extends Component {
 const mapStateToProps = state => {
   return {
     videos: state.videos,
+    playlists: state.playlists,
     user: state.auth.user,
   }
 }
@@ -120,6 +142,9 @@ const mapDispatchToProps = dispatch => {
     },
     addVideo: (name, url, playlist) => {
       return dispatch(videos.addVideo(name, url, playlist));
+    },
+    addPlaylist: (list_name) => {
+      return dispatch(playlists.addPlaylist(list_name));
     },
     updateVideo: (id, name, url, playlist) => {
       return dispatch(videos.updateVideo(id, name, url, playlist));

@@ -2,62 +2,7 @@
 <html lang="en">
   <head>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-          // Load google charts
-            google.charts.load('current', {packages:['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-
-            fetch("/impression_list")
-            .then((response) => {
-              return response.json();
-            })
-            .then(data => {
-              let impressionsFromApi = data.map(Imp => { return Imp.video.name })
-              var imp = new Set()
-              var index;
-              for (index = 0; index < impressionsFromApi.length; ++index) {
-                  imp.add(impressionsFromApi[index])
-                  }
-              var imp_arr = Array.from(imp);
-              var index2;
-              var impression_list = [];
-              for (index2 = 0; index2 < imp_arr.length; ++index2) {
-                  var result = impressionsFromApi.filter(index3 => index3 === imp_arr[index2]).length;
-                  impression_list.push((imp[index2], result))
-                  }
-              imp_dict = {}
-              for (index3 = 0; index3 < imp_arr.length; ++index3) {
-                  imp_dict[imp_arr[index3]]=impression_list[index3]
-              }
-              console.log(imp_dict);
-              var data_table = [['Video', 'Number of logged impressions']];
-              var index4;
-              for(var key in imp_dict) {
-                  var value = imp_dict[key];
-                  data_table.push([key,value])
-              }
-              console.log(data_table);
-              var data = google.visualization.arrayToDataTable(data_table);
-
-            var options = {
-            'title':'Logged impressions by video',
-            pieHole:0.5
-              };
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-            chart.draw(data, options);
-            })
-
-
-
-
-          }
-
-
-
-        </script>
 
 
     <meta charset="utf-8" />

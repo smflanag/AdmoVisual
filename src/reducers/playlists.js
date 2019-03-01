@@ -15,7 +15,7 @@ export default function playlists(state=initialState, action) {
 
     case 'UPDATE_PLAYLIST':
       let playlistToUpdate = playlistList[action.index]
-      playlistToUpdate.name = action.playlist.name;
+      playlistToUpdate.list_name = action.playlist.list_name;
       playlistList.splice(action.index, 1, playlistToUpdate);
       return playlistList;
 
