@@ -24,7 +24,12 @@ import { Provider, connect } from "react-redux";
 import { loadUser } from "./actions/auth";
 import admoapi from "./reducers/index";
 
-const store = createStore(admoapi, applyMiddleware(thunk));
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(admoapi, composeWithDevTools(
+  applyMiddleware(thunk),
+  // other store enhancers if any
+));
 
 class RootContainerComponent extends Component {
 

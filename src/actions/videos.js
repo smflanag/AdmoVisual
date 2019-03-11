@@ -6,7 +6,6 @@ export function fetchVideos() {
     if (token) {
       headers["Authorization"] = `Token ${token}`;
     }
-
     return fetch("/api/videos/", {headers, })
       .then(res => {
         if (res.status < 500) {

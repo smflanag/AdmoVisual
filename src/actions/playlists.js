@@ -8,7 +8,7 @@ export function fetchPlaylists() {
     }
 
     return fetch("/api/playlists/", {headers, })
-      .then(res => {
+        .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
             return {status: res.status, data};
@@ -19,13 +19,17 @@ export function fetchPlaylists() {
         }
       })
       .then(res => {
+        let playlistsFromApi = res.data.map(dropdownPlaylist => { return {value: dropdownPlaylist.id, display: dropdownPlaylist.name} })
+        let playlist_data = [{value: '', display: '(Select the playlist)'}].concat(playlistsFromApi);
+
         if (res.status === 200) {
-          return dispatch({type: 'FETCH_PLAYLISTS', playlists: res.data});
+            return dispatch({type: 'FETCH_PLAYLISTS', playlists: playlist_data});
         } else if (res.status === 401 || res.status === 403) {
-          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-          throw res.data;
+          dispatch({type: "AUTHENTICATION_ERROR", data: playlist_data});
+          throw playlist_data;
         }
       })
+
   }
 }
 
@@ -60,76 +64,3 @@ export function addPlaylist(list_name) {
       })
   }
 }
-
-//export function updatePlaylist(index, name,) {
-//  return (dispatch, getState) => {
-//
-//    let headers = {"Content-Type": "application/json"};
-//    let {token} = getState().auth;
-//
-//    if (token) {
-//      headers["Authorization"] = `Token ${token}`;
-//    }
-//
-//    let body = JSON.stringify({name});
-//    let playlistId = getState().playlists[index].id;
-//    let base_url = "/api/playlists/"+playlistId+"/";
-//
-//    return fetch(base_url, {headers, method: "PUT", body})
-//      .then(res => {
-//        if (res.status < 500) {
-//          return res.json().then(data => {
-//            return {status: res.status, data};
-//          })
-//        } else {
-//          console.log("Server Error!");
-//          throw res;
-//        }
-//      })
-//      .then(res => {
-//        if (res.status === 200) {
-//          return dispatch({type: 'UPDATE_PLAYLIST', playlist: res.data, index});
-//        } else if (res.status === 401 || res.status === 403) {
-//          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-//          throw res.data;
-//        }
-//      })
-//  }
-//}
-//
-//export function deletePlaylist(index) {
-//  return (dispatch, getState) => {
-//
-//    let headers = {"Content-Type": "application/json"};
-//    let {token} = getState().auth;
-//
-//    if (token) {
-//      headers["Authorization"] = `Token ${token}`;
-//    }
-//    console.log(getState());
-//    let playlistId = getState().playlists[index].id;
-//    let base_url = "/api/playlists/"+playlistId+"/";
-//
-//    return fetch(base_url, {headers, method: "DELETE"})
-//      .then(res => {
-//        if (res.status === 204) {
-//          return {status: res.status, data: {}};
-//        } else if (res.status < 500) {
-//          return res.json().then(data => {
-//            return {status: res.status, data};
-//          })
-//        } else {
-//          console.log("Server Error!");
-//          throw res;
-//        }
-//      })
-//      .then(res => {
-//        if (res.status === 204) {
-//          return dispatch({type: 'DELETE_PLAYLIST', index});
-//        } else if (res.status === 401 || res.status === 403) {
-//          dispatch({type: "AUTHENTICATION_ERROR", data: res.data});
-//          throw res.data;
-//        }
-//      })
-//  }
-//}
