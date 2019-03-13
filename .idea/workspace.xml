@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71c66003-ec70-4ef9-86bc-5e9ad6cdb841" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/actions/videoOptions.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/reducers/videoOptions.js" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/ImpressionList.js" afterPath="$PROJECT_DIR$/src/ImpressionList.js" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" afterPath="$PROJECT_DIR$/src/actions/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/actions/videos.js" afterPath="$PROJECT_DIR$/src/actions/videos.js" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" afterPath="$PROJECT_DIR$/src/reducers/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/videos.js" afterPath="$PROJECT_DIR$/src/reducers/videos.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -704,7 +696,14 @@
       <option name="project" value="LOCAL" />
       <updated>1552327637574</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="redux added for videos">
+      <created>1552500391333</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1552500391333</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -781,7 +780,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Styling tables added" />
     <MESSAGE value="Cleaning up code for deployment - django side" />
     <MESSAGE value="Cleaning up code for deployment - react side" />
     <MESSAGE value="requirements amended - gunicorn issue" />
@@ -806,7 +804,8 @@
     <MESSAGE value="Login message/page updated" />
     <MESSAGE value="react-google-charts library used" />
     <MESSAGE value="redux added for players and playlists, in progress for charts. Redux google dev tools added" />
-    <option name="LAST_COMMIT_MESSAGE" value="redux added for players and playlists, in progress for charts. Redux google dev tools added" />
+    <MESSAGE value="redux added for videos" />
+    <option name="LAST_COMMIT_MESSAGE" value="redux added for videos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
