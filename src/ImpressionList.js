@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
-import { impressions, auth, charts, playlists, players } from "./actions/index";
+import { impressions, auth, charts, playlists, players, video_options } from "./actions/index";
 import { Chart } from "react-google-charts";
 
 
@@ -10,7 +10,6 @@ class AllImpressionList extends Component {
         updateImpressionId: null,
         selectedPlayer: "",
         selectedPlaylist: "",
-        dropdownVideos: [],
         selectedVideo: "",
         validationError: "",
         chart_data_table:[],
@@ -22,18 +21,8 @@ class AllImpressionList extends Component {
         this.props.fetchChart();
         this.props.fetchPlaylists();
         this.props.fetchPlayers();
+        this.props.fetchVideoOptions();
 
-
-        fetch("/api/videos/")
-          .then((response) => {
-            return response.json();
-          })
-          .then(data => {
-            let videosFromApi = data.map(dropdownVideo => { return {value: dropdownVideo.id, display: dropdownVideo.name} })
-            this.setState({ dropdownVideos: [{value: '', display: '(Select the video)'}].concat(videosFromApi) });
-          }).catch(error => {
-            console.log(error);
-          });
     }
 
     resetForm = () => {
@@ -74,7 +63,6 @@ class AllImpressionList extends Component {
 
 
 
-
         <h3>Add Impression</h3>
             <form onSubmit={this.submitImpression}>
                 <select value={this.state.selectedPlayer}
@@ -83,7 +71,7 @@ class AllImpressionList extends Component {
         </select>
                 <select value={this.state.selectedVideo}
                 onChange={(e) => this.setState({selectedVideo: e.target.value, validationError: e.target.value === "" ? "You must select the video" : ""})}>
-          {this.state.dropdownVideos.map((dropdownVideo) => <option key={dropdownVideo.value} value={dropdownVideo.value}>{dropdownVideo.display}</option>)}
+          {this.props.video_options.map((dropdownVideo) => <option key={dropdownVideo.value} value={dropdownVideo.value}>{dropdownVideo.display}</option>)}
         </select>
                 <select value={this.state.selectedPlaylist}
                 onChange={(e) => this.setState({selectedPlaylist: e.target.value, validationError: e.target.value === "" ? "You must select the playlist" : ""})}>
@@ -130,7 +118,8 @@ const mapStateToProps = state => {
     user: state.auth.user,
     charts: state.charts,
     playlists: state.playlists,
-    players: state.players
+    players: state.players,
+    video_options: state.video_options
   }
 }
 
@@ -141,6 +130,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchPlaylists: () => {
       dispatch(playlists.fetchPlaylists());
+    },
+    fetchVideoOptions: () => {
+      dispatch(video_options.fetchVideoOptions());
     },
     fetchPlayers: () => {
       dispatch(players.fetchPlayers());
