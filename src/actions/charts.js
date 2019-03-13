@@ -7,11 +7,18 @@ export function fetchChart() {
       headers["Authorization"] = `Token ${token}`;
       }
     return fetch("/impression_list", {headers, })
-        .then((response) => {
-              return response.json();
-            })
         .then(res => {
-              let impressionsFromApi = res.map(Imp => { return Imp.video.name })
+        if (res.status < 500) {
+          return res.json().then(data => {
+            return {status: res.status, data};
+          })
+        } else {
+          console.log("Server Error!");
+          throw res;
+        }
+        })
+        .then(res => {
+              let impressionsFromApi = res.data.map(Imp => { return Imp.video.name })
               var imp = new Set()
               var index;
               for (index = 0; index < impressionsFromApi.length; ++index) {
@@ -36,11 +43,12 @@ export function fetchChart() {
                   dataTable.push([key,value])
                   };
 
-              return dataTable;
+              if (res.status === 200) {
+                    return dispatch({type: 'FETCH_CHARTS', charts: dataTable});
+                } else if (res.status === 401 || res.status === 403) {
+                  dispatch({type: "AUTHENTICATION_ERROR", data: dataTable});
+                  throw dataTable;
+        }
         })
-        .then(res => {
-          return dispatch({type: 'FETCH_CHARTS', charts: res.dataTable});
-
-      })
       }
     }

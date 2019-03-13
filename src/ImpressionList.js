@@ -42,8 +42,8 @@ class AllImpressionList extends Component {
 
   render() {
     return (
-      <div>
-      <div className="col-md-2">
+      <div className="page_body">
+        <div className="col-md-2">
             <div style={{textAlign: "right"}}>
               {this.props.user.username} <a href="" onClick={this.props.logout}>logout</a>
             </div>
@@ -108,6 +108,7 @@ class AllImpressionList extends Component {
                 </table>
             </div>
         </div>
+
     )
   }
 }
